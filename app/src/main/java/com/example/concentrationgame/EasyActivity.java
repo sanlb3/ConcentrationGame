@@ -171,4 +171,6 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
 
         return playerScore;
     }
+
+
 }
