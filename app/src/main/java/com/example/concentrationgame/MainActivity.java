@@ -2,6 +2,7 @@ package com.example.concentrationgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button playBtn;
     Button leaderBoardBtn;
     Button settingsBtn;
+    Switch onOffSwitch;
 
     public SharedPreferences preferences;
     public SharedPreferences.Editor editor;
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         music = MediaPlayer.create(this, R.raw.bg_music);
         music.setLooping(true);
-        music.start();
 
         playBtn = findViewById(R.id.playBtn);
 
@@ -45,45 +46,38 @@ public class MainActivity extends AppCompatActivity {
         settingsBtn.setOnClickListener(view -> showSettingsDialog());
     }
 
-    private void showLeaderDialog()
+    protected void showLeaderDialog()
     {
         Dialog leaderDialog = new Dialog(this, R.style.DialogStyle);
         leaderDialog.setContentView(R.layout.layout_leaderboard_dialog);
         leaderDialog.show();
-        leaderDialog.getWindow().setBackgroundDrawableResource(R.drawable.background_dialog);
-
+        leaderDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
     }
 
-    private void showSettingsDialog()
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    protected void showSettingsDialog()
     {
-
         Dialog settingsDialog = new Dialog(this, R.style.DialogStyle);
         settingsDialog.setContentView(R.layout.layout_settings_dialog);
         settingsDialog.show();
-        settingsDialog.getWindow().setBackgroundDrawableResource(R.drawable.background_dialog);
+        settingsDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
 
         preferences = this.getSharedPreferences("MUSIC", 0);
         editor = preferences.edit();
 
-        Switch onOffSwitch = (Switch) findViewById(R.id.onOffSwitch);
+        onOffSwitch = findViewById(R.id.onOffSwitch);
 
-        if(preferences.getBoolean("ON", false))
-        {
+        if(onOffSwitch != null) {
             music.start();
-            onOffSwitch.setChecked(true);
+            onOffSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+                if (isChecked) {
+                    music.start();
+                    editor.putBoolean("ON", true).commit();
+                } else {
+                    music.pause();
+                    editor.putBoolean("ON", false).commit();
+                }
+            });
         }
-
-        onOffSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked)
-            {
-                music.start();
-                editor.putBoolean("ON", true).commit();
-            }
-            else
-            {
-                music.pause();
-                editor.putBoolean("ON", false).commit();
-            }
-        });
     }
 }

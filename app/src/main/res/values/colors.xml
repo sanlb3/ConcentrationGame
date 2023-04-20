@@ -8,4 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="valo_purble">#C9B4E4</color>
+
+    <!-- Switch Colors -->
+    <color name="disable_grey">#D9DDDC</color>
+    <color name="disble_thumb_grey">#808588</color>
+    <color name="enable_thumb_yellow">#FFEE58</color>
+
+    <!-- Sample Colors -->
+    <color name="orangeText">#FF6B00</color>
+    <color name="backgroundColorNavy">#063A51</color>
+    <color name="dd">#42221f1f</color>
+
 </resources>

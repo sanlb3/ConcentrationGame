@@ -14,7 +14,7 @@
         android:paddingTop="20dp"
         android:text="Settings"
         android:textSize="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold">
 
     </TextView>
@@ -33,11 +33,11 @@
         android:layout_weight="1"
         android:text="Music"
         android:textSize="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold">
     </TextView>
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/onOffSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,8 +48,10 @@
         android:layout_alignRight="@+id/music"
         android:layout_marginBottom="50dp"
         android:layout_alignParentRight="true"
+        android:theme="@style/SCBSwitch"
+        android:checked="true"
         android:layout_weight="1">
-    </Switch>
+    </androidx.appcompat.widget.SwitchCompat>
 
 
 </RelativeLayout>
