@@ -61,9 +61,11 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         shuffleCards();
 
         // Assigns cards into the girdLayout
-        for (int r = 0; r < numRow; r++) {
-            for (int c = 0; c < numRow; c++) {
-                CardButton tempBtn = new CardButton(this, r, c, cards[cardLocation[r * numCol + c]]);
+        for(int r = 0; r < numRow; r++)
+        {
+            for(int c = 0; c < numRow; c++ )
+            {
+                CardButton tempBtn = new CardButton(this, r, c, cards[ cardLocation[r * numCol + c]]);
                 tempBtn.setId(View.generateViewId());
                 tempBtn.setOnClickListener(this);
                 buttons[r * numCol + c] = tempBtn;
@@ -72,14 +74,17 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void shuffleCards() {
+    protected void shuffleCards()
+    {
         Random random = new Random();
 
-        for (int i = 0; i < numElements; i++) {
+        for(int i = 0; i < numElements; i++)
+        {
             cardLocation[i] = i % (numElements / 2);
         }
 
-        for (int i = 0; i < numElements; i++) {
+        for(int i = 0; i < numElements; i++)
+        {
             int temp = cardLocation[i];
             int swapIndex = random.nextInt(8);
 
@@ -93,26 +98,30 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        if (isBusy) {
+        if (isBusy)
+        {
             return;
         }
 
         CardButton card = (CardButton) view;
 
-        if (firstSelected == null) {
+        if(firstSelected == null)
+        {
             firstSelected = card;
             firstSelected.setFlipped();
             return;
         }
 
 
-        if (firstSelected.getId() == card.getId()) {
+        if(firstSelected.getId() == card.getId())
+        {
             return;
         }
 
         //Check if firstSelected card matches card selected if it is selected player gets points.
         // Counter to check that all cards were matched
-        if (firstSelected.getFrontImage() == card.getFrontImage()) {
+        if(firstSelected.getFrontImage() == card.getFrontImage())
+        {
             card.setFlipped();
             card.setMatched(true);
 
@@ -124,14 +133,16 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
             incrementScore();
             counter++;
 
-            if (counter == 8) {
+            if (counter == 8)
+            {
                 Toast.makeText(this, "You Win " + playerScore, Toast.LENGTH_LONG).show();
             }
         }
 
         // if secondSelected is not matched then score is decremented and there is a delay before
         // both cards are flipped back and user will have a chance to select again
-        else {
+        else
+        {
             secondSelected = card;
             secondSelected.setFlipped();
             decrementScore();
