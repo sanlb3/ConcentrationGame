@@ -2,10 +2,12 @@ package com.example.concentrationgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -23,11 +25,15 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
     private CardButton secondSelected;
 
     private boolean isBusy = false;
+    private TextView scoreTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderate);
+
+        // Get a reference to the score TextView
+        scoreTextView = findViewById(R.id.score_textview);
 
         GridLayout gridLayout = findViewById(R.id.moderate_grid_layout);
 
@@ -64,11 +70,9 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         shuffleCards();
 
         // Assigns cards into the girdLayout
-        for(int r = 0; r < numRow; r++)
-        {
-            for(int c = 0; c < numRow; c++ )
-            {
-                CardButton tempBtn = new CardButton(this, r, c, cards[ cardLocation[r * numCol + c]]);
+        for (int r = 0; r < numRow; r++) {
+            for (int c = 0; c < numRow; c++) {
+                CardButton tempBtn = new CardButton(this, r, c, cards[cardLocation[r * numCol + c]]);
                 tempBtn.setId(View.generateViewId());
                 tempBtn.setOnClickListener(this);
                 buttons[r * numCol + c] = tempBtn;
@@ -77,17 +81,14 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    protected void shuffleCards()
-    {
+    protected void shuffleCards() {
         Random random = new Random();
 
-        for(int i = 0; i < numElements; i++)
-        {
+        for (int i = 0; i < numElements; i++) {
             cardLocation[i] = i % (numElements / 2);
         }
 
-        for(int i = 0; i < numElements; i++)
-        {
+        for (int i = 0; i < numElements; i++) {
             int temp = cardLocation[i];
             int swapIndex = random.nextInt(8);
 
@@ -101,30 +102,26 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
 
-        if (isBusy)
-        {
+        if (isBusy) {
             return;
         }
 
         CardButton card = (CardButton) view;
 
-        if(firstSelected == null)
-        {
+        if (firstSelected == null) {
             firstSelected = card;
             firstSelected.setFlipped();
             return;
         }
 
 
-        if(firstSelected.getId() == card.getId())
-        {
+        if (firstSelected.getId() == card.getId()) {
             return;
         }
 
         //Check if firstSelected card matches card selected if it is selected player gets points.
         // Counter to check that all cards were matched
-        if(firstSelected.getFrontImage() == card.getFrontImage())
-        {
+        if (firstSelected.getFrontImage() == card.getFrontImage()) {
             card.setFlipped();
             card.setMatched(true);
 
@@ -136,16 +133,14 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
             incrementScore();
             counter++;
 
-            if (counter == 8)
-            {
+            if (counter == 8) {
                 Toast.makeText(this, "You Win " + playerScore, Toast.LENGTH_LONG).show();
             }
         }
 
         // if secondSelected is not matched then score is decremented and there is a delay before
         // both cards are flipped back and user will have a chance to select again
-        else
-        {
+        else {
             secondSelected = card;
             secondSelected.setFlipped();
             decrementScore();
@@ -163,22 +158,20 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private int incrementScore()
-    {
+    private int incrementScore() {
         playerScore = playerScore + 2;
+        scoreTextView.setText("Score: " + playerScore);
         return playerScore;
     }
 
-    private int decrementScore()
-    {
-        if (playerScore == 0)
-        {
+    private int decrementScore() {
+        if (playerScore == 0) {
             playerScore = playerScore;
-        } else
-        {
+        } else {
             playerScore = playerScore - 1;
         }
-
+        scoreTextView.setText("Score: " + playerScore);
         return playerScore;
     }
 }
+

@@ -9,7 +9,7 @@
     android:background="@color/backgroundColorNavy">
 
     <TextView
-        android:id="@+id/score"
+        android:id="@+id/playerScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -20,20 +20,6 @@
         android:text="Score: "
         android:textColor="@color/orangeText"
         android:textSize="20dp">
-
-    </TextView>
-
-    <TextView
-        android:id="@+id/userScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="122dp"
-        android:layout_marginTop="33dp"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:fontFamily="sans-serif-black">
 
     </TextView>
 
