@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.GridLayout;
 
 public class GameModeActivity extends AppCompatActivity {
 
@@ -22,26 +21,31 @@ public class GameModeActivity extends AppCompatActivity {
         moderate = findViewById(R.id.moderateBtn);
         hard = findViewById(R.id.hardBtn);
 
-        easy.setOnClickListener(view ->
-        {
+        easy.setOnClickListener(view -> {
             Intent intent = new Intent(GameModeActivity.this, EasyActivity.class);
+            int numColumns = 2;
+            int numRows = 2;
+            intent.putExtra("numColumns", numColumns);
+            intent.putExtra("numRows", numRows);
             startActivity(intent);
-
-            GridLayout gridLayout = findViewById(R.id.easy_grid_layout);
-
-            int numColumns = gridLayout.getColumnCount();
-            int numRows = gridLayout.getRowCount();
         });
 
-        moderate.setOnClickListener(view ->
-        {
+        moderate.setOnClickListener(view -> {
             Intent intent = new Intent(GameModeActivity.this, ModerateActivity.class);
+            int numColumns = 4;
+            int numRows = 4;
+            intent.putExtra("numColumns", numColumns);
+            intent.putExtra("numRows", numRows);
             startActivity(intent);
+        });
 
-            GridLayout gridLayout = findViewById(R.id.easy_grid_layout);
-
-            int numColumns = gridLayout.getColumnCount();
-            int numRows = gridLayout.getRowCount();
+        hard.setOnClickListener(view -> {
+            Intent intent = new Intent(GameModeActivity.this, HardActivity.class);
+            int numColumns = 6;
+            int numRows = 6;
+            intent.putExtra("numColumns", numColumns);
+            intent.putExtra("numRows", numRows);
+            startActivity(intent);
         });
     }
 }

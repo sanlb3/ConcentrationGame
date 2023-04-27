@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColorNavy"
     tools:context=".MainActivity">
 
     <TextView
@@ -16,7 +17,15 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.369" />
+        app:layout_constraintVertical_bias="0.369"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"/>
 
     <Button
         android:id="@+id/leaderBoardBtn"
@@ -24,11 +33,15 @@
         android:layout_height="wrap_content"
         android:text="Leaderboard"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/orange_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playBtn"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintVertical_bias="0.106"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/playBtn"
@@ -36,13 +49,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:gravity="center"
+        android:background="@drawable/green_btn"
         android:onClick="onPlay"
         android:padding="10dp"
         android:text="Play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/settingsBtn"
@@ -50,12 +67,16 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:gravity="center"
+        android:background="@drawable/red_btn"
         android:text="Settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderBoardBtn"
-        app:layout_constraintVertical_bias="0.195" />
+        app:layout_constraintVertical_bias="0.195"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

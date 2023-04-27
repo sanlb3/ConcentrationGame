@@ -9,14 +9,14 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Switch;
+import androidx.appcompat.widget.SwitchCompat;
 
 public class MainActivity extends AppCompatActivity {
 
     Button playBtn;
     Button leaderBoardBtn;
     Button settingsBtn;
-    Switch onOffSwitch;
+    SwitchCompat onOffSwitch;
 
     public SharedPreferences preferences;
     public SharedPreferences.Editor editor;
@@ -27,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        preferences = this.getSharedPreferences("MUSIC", 0);
+        editor = preferences.edit();
+
         music = MediaPlayer.create(this, R.raw.bg_music);
         music.setLooping(true);
+        music.start();
 
         playBtn = findViewById(R.id.playBtn);
 
@@ -62,22 +66,29 @@ public class MainActivity extends AppCompatActivity {
         settingsDialog.show();
         settingsDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
 
-        preferences = this.getSharedPreferences("MUSIC", 0);
-        editor = preferences.edit();
+        onOffSwitch = settingsDialog.findViewById(R.id.onOffSwitch);
 
-        onOffSwitch = findViewById(R.id.onOffSwitch);
+        if(onOffSwitch != null)
+        {
+            onOffSwitch.setChecked(true);
+        }
+        onOffSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked) {
+                music.start();
+                editor.putBoolean("ON", true).commit();
+            } else {
+                music.pause();
+                editor.putBoolean("ON", false).commit();
+            }
+        });
 
-        if(onOffSwitch != null) {
+        // Start or pause music based on the switch state
+        boolean isMusicOn = preferences.getBoolean("ON", true);
+        onOffSwitch.setChecked(isMusicOn);
+        if (isMusicOn) {
             music.start();
-            onOffSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-                if (isChecked) {
-                    music.start();
-                    editor.putBoolean("ON", true).commit();
-                } else {
-                    music.pause();
-                    editor.putBoolean("ON", false).commit();
-                }
-            });
+        } else {
+            music.pause();
         }
     }
 }

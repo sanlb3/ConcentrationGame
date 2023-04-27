@@ -3,8 +3,6 @@ package com.example.concentrationgame;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,11 +11,9 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
 
-public class EasyActivity extends AppCompatActivity implements View.OnClickListener {
+public class HardActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int numElements;
     private int[] cards;
@@ -30,20 +26,16 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
     private CardButton secondSelected;
 
     private boolean isBusy = false;
-
     private TextView scoreTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hard);
 
-        setContentView(R.layout.activity_easy);
-
-        // Find the score TextView by ID
-        GridLayout gridLayout = findViewById(R.id.easy_grid_layout);
-        scoreTextView = findViewById(R.id.playerScore);
-        Button newGameBtn = findViewById(R.id.quit_btnE);
-
+        scoreTextView = findViewById(R.id.score_textview);
+        Button newGameBtn = findViewById(R.id.quit_btnH);
+        GridLayout gridLayout = findViewById(R.id.hard_grid_layout);
 
         int numCol = getIntent().getIntExtra("numColumns", 0);
         int numRow = getIntent().getIntExtra("numRows", 0);
@@ -56,26 +48,40 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
 
         cards[0] = R.drawable.chamber;
         cards[1] = R.drawable.sova;
+        cards[2] = R.drawable.gekko;
+        cards[3] = R.drawable.killjoy;
+        cards[4] = R.drawable.breach;
+        cards[5] = R.drawable.phoenix;
+        cards[6] = R.drawable.kayo;
+        cards[7] = R.drawable.yoru;
+        cards[8] = R.drawable.raze;
+        cards[9] = R.drawable.cypher;
+        cards[10] = R.drawable.fade;
+        cards[11] = R.drawable.skye;
+        cards[12] = R.drawable.harbor;
+        cards[13] = R.drawable.brim;
+        cards[14] = R.drawable.astra;
+        cards[15] = R.drawable.omen;
+        cards[16] = R.drawable.neon;
+        cards[17] = R.drawable.reyna;
 
         cardLocation = new int[numElements];
 
         shuffleCards();
 
         // Assigns cards into the girdLayout
-        for(int r = 0; r < numRow; r++)
-        {
-            for(int c = 0; c < numRow; c++ )
-            {
-                CardButton tempBtn = new CardButton(this, r, c, cards[ cardLocation[r * numCol + c]]);
-                tempBtn.setId(View.generateViewId()); //creates temp ID for android to reference back to
-                tempBtn.setOnClickListener(this); // setOnClickListener for our onClick() function
-                buttons[r * numCol + c] = tempBtn; // stores buttons for future uses
+        for (int r = 0; r < numRow; r++) {
+            for (int c = 0; c < numRow; c++) {
+                CardButton tempBtn = new CardButton(this, r, c, cards[cardLocation[r * numCol + c]]);
+                tempBtn.setId(View.generateViewId());
+                tempBtn.setOnClickListener(this);
+                buttons[r * numCol + c] = tempBtn;
                 gridLayout.addView(tempBtn);
             }
         }
 
         newGameBtn.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(EasyActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(HardActivity.this);
             builder.setMessage("Are you sure you want to start a new game?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
@@ -87,6 +93,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
             AlertDialog alert = builder.create();
             alert.show();
         });
+
     }
 
     private void flipAllCards() {
@@ -95,54 +102,46 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void shuffleCards()
-    {
+    protected void shuffleCards() {
         Random random = new Random();
 
-        for(int i = 0; i < numElements; i++)
-        {
+        for (int i = 0; i < numElements; i++) {
             cardLocation[i] = i % (numElements / 2);
         }
 
-        for(int i = 0; i < numElements; i++)
-        {
+        for (int i = 0; i < numElements; i++) {
             int temp = cardLocation[i];
-            int swapIndex = random.nextInt(4);
+            int swapIndex = random.nextInt(36);
 
             cardLocation[i] = cardLocation[swapIndex];
 
             cardLocation[swapIndex] = temp;
-
         }
     }
 
     @Override
     public void onClick(View view) {
 
-        if (isBusy)
-        {
+        if (isBusy) {
             return;
         }
 
         CardButton card = (CardButton) view;
 
-        if(firstSelected == null)
-        {
+        if (firstSelected == null) {
             firstSelected = card;
             firstSelected.setFlipped();
             return;
         }
 
 
-        if(firstSelected.getId() == card.getId())
-        {
+        if (firstSelected.getId() == card.getId()) {
             return;
         }
 
         //Check if firstSelected card matches card selected if it is selected player gets points.
         // Counter to check that all cards were matched
-        if(firstSelected.getFrontImage() == card.getFrontImage())
-        {
+        if (firstSelected.getFrontImage() == card.getFrontImage()) {
             card.setFlipped();
             card.setMatched(true);
 
@@ -154,8 +153,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
             incrementScore();
             counter++;
 
-            if (counter == 2)
-            {
+            if (counter == 18) {
                 Toast.makeText(this, "You Win", Toast.LENGTH_LONG).show();
                 Handler handler = new Handler();
                 handler.postDelayed(this::recreate, 3000);
@@ -164,8 +162,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
 
         // if secondSelected is not matched then score is decremented and there is a delay before
         // both cards are flipped back and user will have a chance to select again
-        else
-        {
+        else {
             secondSelected = card;
             secondSelected.setFlipped();
             decrementScore();
@@ -179,9 +176,10 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
                 firstSelected.setFlipped();
                 firstSelected = null;
                 isBusy = false;
-            }, 1000);
+            }, 500);
         }
     }
+
 
     private int incrementScore() {
         playerScore = playerScore + 2;

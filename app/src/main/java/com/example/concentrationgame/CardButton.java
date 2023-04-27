@@ -3,7 +3,7 @@ package com.example.concentrationgame;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.widget.Button;
+import android.os.Bundle;
 import android.widget.GridLayout;
 
 import androidx.appcompat.widget.AppCompatDrawableManager;
@@ -36,8 +36,8 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
 
         GridLayout.LayoutParams tempParams = new GridLayout.LayoutParams(GridLayout.spec(col), GridLayout.spec(rows));
 
-        tempParams.width = (int) getResources().getDisplayMetrics().density *75;
-        tempParams.height = (int) getResources().getDisplayMetrics().density *75;
+        tempParams.width = (int) getResources().getDisplayMetrics().density *80;
+        tempParams.height = (int) getResources().getDisplayMetrics().density *80;
 
         setLayoutParams(tempParams);
 
@@ -74,4 +74,5 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
             isFlipped = true;
         }
     }
+
 }

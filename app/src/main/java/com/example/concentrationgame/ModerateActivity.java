@@ -1,11 +1,13 @@
 package com.example.concentrationgame;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,18 +29,20 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
     private boolean isBusy = false;
     private TextView scoreTextView;
 
+    Button no;
+    Button yes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderate);
 
-        // Get a reference to the score TextView
         scoreTextView = findViewById(R.id.score_textview);
-
+        Button newGameBtn = findViewById(R.id.quit_btnM);
         GridLayout gridLayout = findViewById(R.id.moderate_grid_layout);
 
-        int numCol = gridLayout.getColumnCount();
-        int numRow = gridLayout.getRowCount();
+        int numCol = getIntent().getIntExtra("numColumns", 0);
+        int numRow = getIntent().getIntExtra("numRows", 0);
 
         numElements = numCol * numRow;
 
@@ -54,16 +58,7 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         cards[5] = R.drawable.phoenix;
         cards[6] = R.drawable.kayo;
         cards[7] = R.drawable.yoru;
-        cards[8] = R.drawable.raze;
-        cards[9] = R.drawable.cypher;
-        cards[10] = R.drawable.fade;
-        cards[11] = R.drawable.skye;
-        cards[12] = R.drawable.raze;
-        cards[13] = R.drawable.cypher;
-        cards[14] = R.drawable.astra;
-        cards[15] = R.drawable.omen;
-        cards[16] = R.drawable.neon;
-        cards[17] = R.drawable.reyna;
+
 
         cardLocation = new int[numElements];
 
@@ -79,6 +74,27 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
                 gridLayout.addView(tempBtn);
             }
         }
+
+        newGameBtn.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ModerateActivity.this);
+            builder.setMessage("Are you sure you want to start a new game?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        flipAllCards();
+                        Handler handler = new Handler();
+                        handler.postDelayed(this::recreate, 5000);
+                    })
+                    .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+            AlertDialog alert = builder.create();
+            alert.show();
+        });
+
+    }
+
+    private void flipAllCards() {
+        for (CardButton card : buttons) {
+            card.setFlipped();
+        }
     }
 
     protected void shuffleCards() {
@@ -90,7 +106,7 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
 
         for (int i = 0; i < numElements; i++) {
             int temp = cardLocation[i];
-            int swapIndex = random.nextInt(8);
+            int swapIndex = random.nextInt(16);
 
             cardLocation[i] = cardLocation[swapIndex];
 
@@ -134,7 +150,9 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
             counter++;
 
             if (counter == 8) {
-                Toast.makeText(this, "You Win " + playerScore, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You Win", Toast.LENGTH_LONG).show();
+                Handler handler = new Handler();
+                handler.postDelayed(this::recreate, 3000);
             }
         }
 
@@ -154,9 +172,10 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
                 firstSelected.setFlipped();
                 firstSelected = null;
                 isBusy = false;
-            }, 500);
+            }, 1000);
         }
     }
+
 
     private int incrementScore() {
         playerScore = playerScore + 2;
@@ -174,4 +193,3 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         return playerScore;
     }
 }
-

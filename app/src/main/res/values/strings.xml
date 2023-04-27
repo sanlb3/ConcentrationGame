@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ConcentrationGame</string>
+    <string name="new_game_prompt"> Are you sure you want to quit and start a new game? All unsaved progress will be lost. </string>
 </resources>

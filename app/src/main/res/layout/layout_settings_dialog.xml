@@ -13,9 +13,14 @@
         android:gravity="center"
         android:paddingTop="20dp"
         android:text="Settings"
-        android:textSize="20dp"
         android:textColor="@color/white"
-        android:textStyle="bold">
+        android:fontFamily="sans-serif-black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5">
 
     </TextView>
 
@@ -34,7 +39,12 @@
         android:text="Music"
         android:textSize="20dp"
         android:textColor="@color/white"
-        android:textStyle="bold">
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5">
     </TextView>
 
     <androidx.appcompat.widget.SwitchCompat
