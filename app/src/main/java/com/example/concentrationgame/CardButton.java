@@ -43,18 +43,17 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
 
     }
 
-    public boolean isMatched(){
-        return isMatched;
-    }
-
     public void setMatched(boolean matched)
     {
         isMatched = matched;
     }
 
-    public int getFrontImage()
-    {
-        return frontImage;
+    //public int getColumns() { return columns;}
+    //public int getRows() { return rows;}
+    //public boolean isFlipped() { return isFlipped;}
+    public int getFrontImage() { return frontImage;}
+    public boolean isMatched(){
+        return isMatched;
     }
 
     public void setFlipped()
@@ -74,5 +73,13 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
             isFlipped = true;
         }
     }
+
+    /*
+    public void resetCard(){
+        isMatched = false;
+        isFlipped = false;
+        setFlipped();
+    }
+    */
 
 }

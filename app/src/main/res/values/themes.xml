@@ -26,6 +26,12 @@
         <item name="android:windowMinWidthMinor">80%</item>
     </style>
 
+    <!-- AlertDialogStyle -->
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">0%</item>
+        <item name="android:windowMinWidthMinor">0%</item>
+    </style>
+
     <!-- Switch -->
     <style name="SCBSwitch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->

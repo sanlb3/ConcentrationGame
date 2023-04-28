@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,10 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         scoreTextView = findViewById(R.id.score_textview);
         Button newGameBtn = findViewById(R.id.quit_btnM);
         GridLayout gridLayout = findViewById(R.id.moderate_grid_layout);
+
+        //set score
+        playerScore = 0;
+        scoreTextView.setText("Score: " + playerScore);
 
         int numCol = getIntent().getIntExtra("numColumns", 0);
         int numRow = getIntent().getIntExtra("numRows", 0);
@@ -81,14 +86,50 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
                         flipAllCards();
-                        Handler handler = new Handler();
-                        handler.postDelayed(this::recreate, 5000);
+                        //Handler handler = new Handler();
+                        //handler.postDelayed(this::recreate, 5000);
+                        resetGame();
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel());
             AlertDialog alert = builder.create();
             alert.show();
         });
+    }
 
+    protected void showSaveScoreDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogStyle);
+        final View customLayout = getLayoutInflater().inflate(R.layout.layout_save_score_dialog, null);
+
+        TextView tv = customLayout.findViewById(R.id.final_score);
+        tv.setText(Integer.toString(playerScore));
+
+        Button save = customLayout.findViewById(R.id.save_button);
+        save.setOnClickListener(view -> {
+            //save input name if exists, else name Anonymous
+            EditText inputText = customLayout.findViewById(R.id.input_name);
+            String name = inputText.getText().toString();
+            if(name.matches("")){
+                name = "Anonymous";
+            }
+
+            //add save methods to
+            //store name and score
+            //for leaderboard
+
+            resetGame();
+        });
+
+        builder.setView(customLayout);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+        //setContentView();
+        dialog.show();
+    }
+
+    protected void resetGame(){
+        Handler handler = new Handler();
+        handler.postDelayed(this::recreate, 0);
     }
 
     private void flipAllCards() {
@@ -124,6 +165,12 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
 
         CardButton card = (CardButton) view;
 
+        //do nothing if clicking a card that is already matched
+        if (card.isMatched() || card.isFlipped)
+        {
+            return;
+        }
+
         if (firstSelected == null) {
             firstSelected = card;
             firstSelected.setFlipped();
@@ -150,9 +197,10 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
             counter++;
 
             if (counter == 8) {
-                Toast.makeText(this, "You Win", Toast.LENGTH_LONG).show();
-                Handler handler = new Handler();
-                handler.postDelayed(this::recreate, 3000);
+                //Toast.makeText(this, "You Win", Toast.LENGTH_LONG).show();
+                //Handler handler = new Handler();
+                //handler.postDelayed(this::recreate, 3000);
+                showSaveScoreDialog();
             }
         }
 

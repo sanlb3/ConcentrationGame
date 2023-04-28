@@ -3,15 +3,21 @@ package com.example.concentrationgame;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,9 +31,14 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
     private int counter;
     private int playerScore;
 
+    private int numCol;
+    private int numRow;
+
     private CardButton[] buttons;
     private CardButton firstSelected;
     private CardButton secondSelected;
+
+    private GridLayout gridLayout;
 
     private boolean isBusy = false;
 
@@ -40,13 +51,17 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_easy);
 
         // Find the score TextView by ID
-        GridLayout gridLayout = findViewById(R.id.easy_grid_layout);
+        gridLayout = findViewById(R.id.easy_grid_layout);
         scoreTextView = findViewById(R.id.playerScore);
         Button newGameBtn = findViewById(R.id.quit_btnE);
 
 
-        int numCol = getIntent().getIntExtra("numColumns", 0);
-        int numRow = getIntent().getIntExtra("numRows", 0);
+        //set score
+        playerScore = 0;
+        scoreTextView.setText("Score: " + playerScore);
+
+        numCol = getIntent().getIntExtra("numColumns", 0);
+        numRow = getIntent().getIntExtra("numRows", 0);
 
         numElements = numCol * numRow;
 
@@ -60,8 +75,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         cardLocation = new int[numElements];
 
         shuffleCards();
-
-        // Assigns cards into the girdLayout
+        // Assigns cards into the gridLayout
         for(int r = 0; r < numRow; r++)
         {
             for(int c = 0; c < numRow; c++ )
@@ -80,13 +94,48 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
                         flipAllCards();
-                        Handler handler = new Handler();
-                        handler.postDelayed(this::recreate, 5000);
+                        resetGame();
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel());
             AlertDialog alert = builder.create();
             alert.show();
         });
+    }
+
+    protected void showSaveScoreDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogStyle);
+        final View customLayout = getLayoutInflater().inflate(R.layout.layout_save_score_dialog, null);
+
+        TextView tv = customLayout.findViewById(R.id.final_score);
+        tv.setText(Integer.toString(playerScore));
+
+        Button save = customLayout.findViewById(R.id.save_button);
+        save.setOnClickListener(view -> {
+            //save input name if exists, else name Anonymous
+            EditText inputText = customLayout.findViewById(R.id.input_name);
+            String name = inputText.getText().toString();
+            if(name.matches("")){
+                name = "Anonymous";
+            }
+
+            //add save methods to
+            //store name and score
+            //for leaderboard
+
+            resetGame();
+        });
+
+        builder.setView(customLayout);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+        //setContentView();
+        dialog.show();
+    }
+
+    protected void resetGame(){
+        Handler handler = new Handler();
+        handler.postDelayed(this::recreate, 0);
     }
 
     private void flipAllCards() {
@@ -119,12 +168,19 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
+
         if (isBusy)
         {
             return;
         }
 
         CardButton card = (CardButton) view;
+
+        //do nothing if clicking a card that is already matched
+        if (card.isMatched() || card.isFlipped)
+        {
+            return;
+        }
 
         if(firstSelected == null)
         {
@@ -145,7 +201,6 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         {
             card.setFlipped();
             card.setMatched(true);
-
             firstSelected.setMatched(true);
             firstSelected.setEnabled(false);
             card.setEnabled(false);
@@ -156,9 +211,8 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
 
             if (counter == 2)
             {
-                Toast.makeText(this, "You Win", Toast.LENGTH_LONG).show();
-                Handler handler = new Handler();
-                handler.postDelayed(this::recreate, 3000);
+                //Toast.makeText(this, "You Win", Toast.LENGTH_LONG).show();
+                showSaveScoreDialog();
             }
         }
 
