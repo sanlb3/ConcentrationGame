@@ -10,6 +10,14 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +62,35 @@ public class MainActivity extends AppCompatActivity {
     {
         Dialog leaderDialog = new Dialog(this, R.style.DialogStyle);
         leaderDialog.setContentView(R.layout.layout_leaderboard_dialog);
+        RecyclerView recyclerView = leaderDialog.findViewById(R.id.recycler);
+        List<LeaderboardItem> items = new ArrayList<LeaderboardItem>();
+
+        SharedPreferences sharedPrefs = getSharedPreferences("scores", MODE_PRIVATE);
+        Map<String, ?> scores = sharedPrefs.getAll();
+        for(Map.Entry<String,?> entry: scores.entrySet()){
+            String name = entry.getKey();
+            Object score = entry.getValue();
+            items.add(new LeaderboardItem(name, (Integer)score));
+        }
+
+        items.add(new LeaderboardItem("Jeremy", 7));
+
+        //sorts leaderboard by highest score
+        Collections.sort(items, new Comparator<LeaderboardItem>(){
+            @Override
+            public int compare(LeaderboardItem item2, LeaderboardItem item1){
+                if(item1.getScore() < item2.getScore())
+                    return -1;
+                else if(item1.getScore() == item2.getScore())
+                    return 0;
+                else
+                    return 1;
+            }
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new LeaderboardAdapter(this, items));
+
         leaderDialog.show();
         leaderDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -86,9 +87,7 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
                         flipAllCards();
-                        //Handler handler = new Handler();
-                        //handler.postDelayed(this::recreate, 5000);
-                        resetGame();
+                        resetGame(0);
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel());
             AlertDialog alert = builder.create();
@@ -113,23 +112,28 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
                 name = "Anonymous";
             }
 
-            //add save methods to
-            //store name and score
-            //for leaderboard
-
-            resetGame();
+            //store name and score for leaderboard
+            saveScore(name, playerScore);
+            //reset game
+            resetGame(500);
         });
 
         builder.setView(customLayout);
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
-        //setContentView();
         dialog.show();
     }
 
-    protected void resetGame(){
+    public void saveScore(String name, int score){
+        SharedPreferences sharedPrefs = getSharedPreferences("scores", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putInt(name, score);
+        editor.apply();
+    }
+
+    protected void resetGame(int delay){
         Handler handler = new Handler();
-        handler.postDelayed(this::recreate, 0);
+        handler.postDelayed(this::recreate, delay);
     }
 
     private void flipAllCards() {
