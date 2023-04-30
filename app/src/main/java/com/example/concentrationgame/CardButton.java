@@ -17,6 +17,7 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
     protected boolean isFlipped = false;
     protected boolean isMatched = false;
 
+
     protected Drawable frontView;
     protected Drawable backView;
 
@@ -72,6 +73,7 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
             setBackground(frontView);
             isFlipped = true;
         }
+
     }
 
     /*

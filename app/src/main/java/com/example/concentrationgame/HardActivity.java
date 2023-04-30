@@ -37,6 +37,8 @@ public class HardActivity extends AppCompatActivity implements View.OnClickListe
 
         scoreTextView = findViewById(R.id.score_textview);
         Button newGameBtn = findViewById(R.id.quit_btnH);
+        Button endgameBtn = findViewById(R.id.endBtnH);
+
         GridLayout gridLayout = findViewById(R.id.hard_grid_layout);
 
         //set score
@@ -85,7 +87,17 @@ public class HardActivity extends AppCompatActivity implements View.OnClickListe
                 gridLayout.addView(tempBtn);
             }
         }
-
+        endgameBtn.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HardActivity.this);
+            builder.setMessage("Are you sure you want to end game?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        flipAllCards();
+                    })
+                    .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+            AlertDialog alert = builder.create();
+            alert.show();
+        });
         newGameBtn.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(HardActivity.this);
             builder.setMessage("Are you sure you want to start a new game?")
@@ -143,6 +155,7 @@ public class HardActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void flipAllCards() {
+        isBusy = true;
         for (CardButton card : buttons) {
             card.setFlipped();
         }

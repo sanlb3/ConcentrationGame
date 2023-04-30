@@ -55,7 +55,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         gridLayout = findViewById(R.id.easy_grid_layout);
         scoreTextView = findViewById(R.id.playerScore);
         Button newGameBtn = findViewById(R.id.quit_btnE);
-
+        Button endgameBtn = findViewById(R.id.endBtn);
 
         //set score
         playerScore = 0;
@@ -77,17 +77,27 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
 
         shuffleCards();
         // Assigns cards into the gridLayout
-        for(int r = 0; r < numRow; r++)
-        {
-            for(int c = 0; c < numRow; c++ )
-            {
-                CardButton tempBtn = new CardButton(this, r, c, cards[ cardLocation[r * numCol + c]]);
+        for(int r = 0; r < numRow; r++) {
+            for (int c = 0; c < numRow; c++) {
+                CardButton tempBtn = new CardButton(this, r, c, cards[cardLocation[r * numCol + c]]);
                 tempBtn.setId(View.generateViewId()); //creates temp ID for android to reference back to
                 tempBtn.setOnClickListener(this); // setOnClickListener for our onClick() function
                 buttons[r * numCol + c] = tempBtn; // stores buttons for future uses
                 gridLayout.addView(tempBtn);
             }
         }
+        endgameBtn.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(EasyActivity.this);
+            builder.setMessage("Are you sure you want to end game?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialog, id) -> {
+            flipAllCards();
+                    })
+                    .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+            AlertDialog alert = builder.create();
+            alert.show();
+        });
+
 
         newGameBtn.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(EasyActivity.this);
@@ -144,10 +154,13 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void flipAllCards() {
+        isBusy = true;
         for (CardButton card : buttons) {
             card.setFlipped();
         }
     }
+
+
 
     protected void shuffleCards()
     {

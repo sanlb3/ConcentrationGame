@@ -8,6 +8,36 @@
     tools:context=".ModerateActivity"
     android:background="@color/backgroundColorNavy">
 
+    <Button
+        android:id="@+id/endBtnM2"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/orange_btn"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="End Game"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/quit_btnM2"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/orange_btn"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="New Game"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
