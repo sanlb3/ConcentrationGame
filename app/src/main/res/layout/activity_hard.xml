@@ -8,14 +8,36 @@
     tools:context=".HardActivity"
     android:background="@color/backgroundColorNavy">
 
+    <Button
+        android:id="@+id/quit_btnH"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/orange_btn"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="New Game"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:padding="16dp"
         android:id="@+id/hard_grid_layout"
-        android:columnCount="6"
-        android:rowCount="6">
+        android:columnCount="3"
+        android:rowCount="3">
 
     </GridLayout>
 
@@ -34,19 +56,4 @@
         android:textSize="20dp">
 
     </TextView>
-
-    <Button
-        android:id="@+id/quit_btnH"
-        android:layout_width="110dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="19dp"
-        android:text="New Game"
-        android:gravity="center"
-        android:background="@drawable/orange_btn"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-black"
-        android:textStyle="bold" />
 </RelativeLayout>
