@@ -128,7 +128,7 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
     public void saveScore(String name, int score){
         SharedPreferences sharedPrefs = getSharedPreferences("scores", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putInt(name, score);
+        editor.putInt(name + "M", score);
         editor.apply();
     }
 

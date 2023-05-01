@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
             items.add(new LeaderboardItem(name, (Integer) score));
         }
 
-        items.add(new LeaderboardItem("Jeremy", 7));
+        //test add
+        //items.add(new LeaderboardItem("Jeremy", 7));
 
         //sorts leaderboard by highest score
         Collections.sort(items, new Comparator<LeaderboardItem>() {

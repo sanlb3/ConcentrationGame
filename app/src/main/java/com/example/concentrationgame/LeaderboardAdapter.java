@@ -25,8 +25,10 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textName.setText(items.get(position).getName());
-        holder.textScore.setText(Integer.toString(items.get(position).getScore()));
+        String nameDiff = items.get(position).getName();
+        int nameLength = nameDiff.length();
+        holder.textName.setText(nameDiff.substring(0, nameLength - 1));
+        holder.textScore.setText(Integer.toString(items.get(position).getScore()) + " " + nameDiff.charAt(nameLength - 1));
     }
 
     @Override

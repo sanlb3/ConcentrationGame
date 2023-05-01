@@ -134,7 +134,9 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
     public void saveScore(String name, int score){
         SharedPreferences sharedPrefs = getSharedPreferences("scores", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putInt(name, score);
+        editor.putInt(name + "E", score);
+        //test clear method
+        //editor.clear();
         editor.apply();
     }
 
