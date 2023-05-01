@@ -55,7 +55,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         gridLayout = findViewById(R.id.easy_grid_layout);
         scoreTextView = findViewById(R.id.playerScore);
         Button newGameBtn = findViewById(R.id.quit_btnE);
-        Button endgameBtn = findViewById(R.id.endBtn);
+
 
         //set score
         playerScore = 0;
@@ -86,17 +86,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
                 gridLayout.addView(tempBtn);
             }
         }
-        endgameBtn.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(EasyActivity.this);
-            builder.setMessage("Are you sure you want to end game?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", (dialog, id) -> {
-            flipAllCards();
-                    })
-                    .setNegativeButton("No", (dialog, id) -> dialog.cancel());
-            AlertDialog alert = builder.create();
-            alert.show();
-        });
+
 
 
         newGameBtn.setOnClickListener(view -> {
