@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private Button playBtn;
     private Button leaderBoardBtn;
     private Button settingsBtn;
+    private Button exitBtn;
     private SwitchCompat onOffSwitch;
-    private MediaPlayer music;
     private MusicService musicService;
     private boolean isServiceRunning;
     private SharedPreferences preferences;
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         settingsDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
 
         onOffSwitch = settingsDialog.findViewById(R.id.onOffSwitch);
+        exitBtn = settingsDialog.findViewById(R.id.exit_button);
 
         if (onOffSwitch != null) {
             onOffSwitch.setChecked(true);
@@ -136,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 musicService.stopMusic();
                 editor.putBoolean("ON", false).commit();
             }
+        });
+
+        exitBtn.setOnClickListener( view ->
+        {
+            settingsDialog.dismiss();
         });
 
 

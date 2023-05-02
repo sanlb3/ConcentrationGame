@@ -38,7 +38,7 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-// stop music when app is closed or destroyed
+        // stop music when app is closed or destroyed
         if (musicPlayer != null) {
             musicPlayer.stop();
             musicPlayer.release();

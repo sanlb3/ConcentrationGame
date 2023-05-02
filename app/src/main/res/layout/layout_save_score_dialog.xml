@@ -27,7 +27,16 @@
                 android:textSize="25sp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="0dp"
-                android:text="You win!"></TextView>
+                android:text="You win!"
+                android:fontFamily="sans-serif-black"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+
+            </TextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,16 +51,34 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="0dp"
                 android:text="Final Score: "
-                app:layout_constraintLeft_toLeftOf="@+id/message"></TextView>
+                app:layout_constraintLeft_toLeftOf="@+id/message"
+                android:fontFamily="sans-serif-black"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+
+            </TextView>
 
             <TextView
                 android:id="@+id/final_score"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="0dp"
-                android:text="0"></TextView>
+                android:text="0"
+                android:fontFamily="sans-serif-black"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+
+            </TextView>
 
         </LinearLayout>
         <View
@@ -59,7 +86,9 @@
             android:layout_height="1dp"
             android:padding="8dp"
             android:layout_marginVertical="8dp"
-            android:background="?android:attr/listDivider"></View>
+            android:background="?android:attr/listDivider">
+
+        </View>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -69,34 +98,49 @@
 
         <TextView
             android:id="@+id/input_title"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="0dp"
-            android:text="Save score: "></TextView>
+            android:text="Save score: "
+            android:fontFamily="sans-serif-black"
+            android:shadowColor="#000000"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="5"
+            android:textColor="@color/white"
+            android:textStyle="bold">
+
+        </TextView>
 
         <EditText
             android:id="@+id/input_name"
-            android:layout_width="225dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="0dp"
-            android:hint="enter name here..."
-            android:textSize="20sp"></EditText>
+            android:hint="Enter name here"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif">
+
+        </EditText>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:padding="8dp">
+        android:layout_gravity="end|bottom">
         <Button
             android:id="@+id/save_button"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
             android:text="Save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="8dp">
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/white"
+            android:background="@drawable/orange_btn">
+
         </Button>
     </LinearLayout>
     </LinearLayout>

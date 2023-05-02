@@ -56,7 +56,6 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
         scoreTextView = findViewById(R.id.playerScore);
         Button newGameBtn = findViewById(R.id.quit_btnE);
 
-
         //set score
         playerScore = 0;
         scoreTextView.setText("Score: " + playerScore);
@@ -87,15 +86,14 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-
-
         newGameBtn.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(EasyActivity.this);
-            builder.setMessage("Are you sure you want to start a new game?")
+            builder.setMessage("Are you sure you want to quit and start a new game?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
                         flipAllCards();
-                        resetGame(0);
+                        Toast.makeText(this, "Here are the answers", Toast.LENGTH_SHORT).show();
+                        resetGame(3000);
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel());
             AlertDialog alert = builder.create();
@@ -122,7 +120,7 @@ public class EasyActivity extends AppCompatActivity implements View.OnClickListe
             //store name and score for leaderboard
             saveScore(name, playerScore);
             //reset game
-            resetGame(500);
+            resetGame(2000);
         });
 
         builder.setView(customLayout);

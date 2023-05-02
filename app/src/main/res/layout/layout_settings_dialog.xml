@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/music"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_alignParentLeft="true"
@@ -63,5 +63,20 @@
         android:layout_weight="1">
     </androidx.appcompat.widget.SwitchCompat>
 
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/music"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/orange_btn"
+        android:fontFamily="sans-serif-black"
+        android:text="Exit"
+        android:textColor="@color/white">
+
+    </Button>
 
 </RelativeLayout>

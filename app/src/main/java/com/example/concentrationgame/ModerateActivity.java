@@ -41,7 +41,6 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
 
         scoreTextView = findViewById(R.id.score_textview);
         Button newGameBtn = findViewById(R.id.quit_btnM);
-
         GridLayout gridLayout = findViewById(R.id.moderate_grid_layout);
 
         //set score
@@ -84,11 +83,12 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
 
         newGameBtn.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ModerateActivity.this);
-            builder.setMessage("Are you sure you want to start a new game?")
+            builder.setMessage("Are you sure you want to quit and start a new game?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
                         flipAllCards();
-                        resetGame(0);
+                        Toast.makeText(this, "Here are the answers", Toast.LENGTH_SHORT).show();
+                        resetGame(3000);
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel());
             AlertDialog alert = builder.create();
@@ -116,7 +116,7 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
             //store name and score for leaderboard
             saveScore(name, playerScore);
             //reset game
-            resetGame(500);
+            resetGame(2000);
         });
 
         builder.setView(customLayout);
