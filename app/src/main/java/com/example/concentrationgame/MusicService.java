@@ -60,6 +60,7 @@ public class MusicService extends Service {
     public void stopMusic() {
         if (musicPlayer != null && musicPlayer.isPlaying()) {
             musicPlayer.pause();
+
         }
     }
 }

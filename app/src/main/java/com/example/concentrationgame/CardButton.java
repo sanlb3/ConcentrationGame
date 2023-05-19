@@ -37,8 +37,8 @@ public class CardButton extends androidx.appcompat.widget.AppCompatButton {
 
         GridLayout.LayoutParams tempParams = new GridLayout.LayoutParams(GridLayout.spec(col), GridLayout.spec(rows));
 
-        tempParams.width = (int) getResources().getDisplayMetrics().density *80;
-        tempParams.height = (int) getResources().getDisplayMetrics().density *80;
+        tempParams.width = (int) getResources().getDisplayMetrics().density *83;
+        tempParams.height = (int) getResources().getDisplayMetrics().density *83;
 
         setLayoutParams(tempParams);
 

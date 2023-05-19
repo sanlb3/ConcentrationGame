@@ -104,6 +104,11 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
         TextView tv = customLayout.findViewById(R.id.final_score);
         tv.setText(Integer.toString(playerScore));
 
+        builder.setView(customLayout);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+        dialog.show();
+
         Button save = customLayout.findViewById(R.id.save_button);
         save.setOnClickListener(view -> {
             //save input name if exists, else name Anonymous
@@ -117,12 +122,9 @@ public class ModerateActivity extends AppCompatActivity implements View.OnClickL
             saveScore(name, playerScore);
             //reset game
             resetGame(2000);
+            dialog.dismiss();
         });
 
-        builder.setView(customLayout);
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
-        dialog.show();
     }
 
     public void saveScore(String name, int score){
