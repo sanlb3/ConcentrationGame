@@ -4,3 +4,5 @@ don't match 1 point will be deducted. You can not have negative points. Towards 
 within the game. The theme of our app is based off a small indie game called “Valorant”. To desgin the prototype we used Figma to implement the Golden Rules of UI including, 
 but not limited to, strive for consistency, offer informativce feedback, reversal of actions and dialog to yieldd closure. 
 
+Figma Prototype : 
+![figma_proto](https://github.com/sanlb3/ConcentrationGame/assets/101151334/9bf6266e-958d-42b3-bfb4-6aa23ee0497f)
